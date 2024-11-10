@@ -39,6 +39,12 @@ globals:
   - id: capacity
     type: int
     initial_value: '1500'
+  - id: battery_max
+    type: int
+    initial_value: '4.2'
+  - id: battery_min
+    type: int
+    initial_value: '3.3'
 
 packages:
   esp32c6: !include common/esp32c6.yaml
@@ -238,7 +244,8 @@ sensor:
       then:
         - sensor.template.publish:
             id: battery_level
-            state: !lambda 'return round((id(battery_voltage).state / 3.70) * 100.00);' 
+            # state: !lambda 'return round((id(battery_voltage).state / 3.70) * 100.00);' 
+            state: !lambda 'return round( ( (id(battery_voltage).state - id(battery_min)) / (id(battery_max) - id(battery_min)) ) * 100.00);' 
     update_interval: never 
 
   # Battery level in percent of LiPo battery (3.7V) 

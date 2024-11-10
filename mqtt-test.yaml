@@ -1,0 +1,32 @@
+esphome:
+  name: mqtt-test
+  friendly_name: MQTT Test
+
+esp32:
+  board: esp32-c3-devkitm-1
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "2Yn6zuag0UhUQo42ReOumOp/wRKHGh7y3s/lA9tOM/Y="
+
+ota:
+  - platform: esphome
+    password: "68f97155543698de6943e4b45552375b"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Mqtt-Test Fallback Hotspot"
+    password: "DVD4WwyVr5Cs"
+
+captive_portal:
+    
